@@ -1,0 +1,67 @@
+<html>
+<head>
+    {% load static %}
+
+
+		<!-- MATERIAL DESIGN ICONIC FONT -->
+
+
+	    <link href="{% static 'persona/fonts/material-design-iconic-font/css/material-design-iconic-font.css' %}" rel="stylesheet">
+
+		<!-- STYLE CSS -->
+       <!-- <link rel="stylesheet" href="css/style.css"> -->
+     <link href="{% static 'persona/css/style.css' %}" rel="stylesheet">
+
+
+
+
+
+
+</head>
+<body>
+
+
+
+<div>
+		{% if messages %}  <!-- si hay algun tipo de mensajes a la hora de validar este formulario, me tienes que recorrer con un for!-->
+     <ul style="background:green; text-align:center; color:white;">
+		 {% for mensaje in messages %} <!--  recorro con un for los mensajes de error, advertencia etc!-->
+		 <li {% if mensaje.tags %} {{mensaje.tags}} {% endif %}>{{mensaje}}</li>
+     {% endfor %}
+	 </ul>
+	{% endif %}
+<form method ="post">
+	{% csrf_token %}
+
+
+
+
+
+
+
+    <h2 style="margin-left:400px;">REGISTRARSE</h2><br>
+	<table class="form-control">
+
+		{{form}}
+
+
+
+
+	</table>
+
+<button type="submit" style="width:200px; margin-left: 400px; margin-top:50px; background:green; cursor:pointer;">Guardar</button><br>
+</form>
+</div>
+		<!-- JQUERY -->
+		<script src="{% static 'persona/js/jquery-3.3.1.min.js '%}"></script>
+
+		<!-- JQUERY STEP -->
+		<script src="{% static 'persona/js/jquery.steps.js '%}"></script>
+		<script src="{% static 'persona/js/main.js '% }"></script>
+		<!-- Template created and distributed by Colorlib -->
+
+
+</body>
+
+
+</html>
