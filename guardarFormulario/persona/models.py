@@ -16,6 +16,14 @@ class Personas(models.Model):
     pais= models.CharField(max_length=15,  null= False, blank=False, choices=pais_status, default= 1)#con default = 1 me aparece solo los valores que escribi arriba y no esa line discontinua que molesta
     codigo_postal = models.IntegerField()
     mensaje= models.TextField()
+    fecha_inicio2= models.DateField()
+    fecha_final2 =models.DateField()
+    #----------------------------------fecha----------------------------------------------------------
+    #fecha_inicio = models.DateTimeField(auto_now=False)
+   # fecha_final = models.DateTimeField(auto_now=False)
+    
+    
+    #--------------------------------------------------------------------------------------------------
     created = models.DateTimeField(auto_now_add=True)  # aca guardamos la fecha que se creo un servicio
     updated = models.DateTimeField(auto_now=True) # aca guardamos cuando se actualiza
 

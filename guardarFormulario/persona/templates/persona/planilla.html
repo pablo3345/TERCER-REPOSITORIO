@@ -13,7 +13,12 @@
      <link href="{% static 'persona/css/style.css' %}" rel="stylesheet">
 
 
+	 
 
+
+
+
+	
 
 
 
@@ -30,7 +35,10 @@
      {% endfor %}
 	 </ul>
 	{% endif %}
-<form method ="post">
+
+	
+
+<form method ="post"  enctype="multipart/form-data">
 	{% csrf_token %}
 
 
@@ -44,14 +52,99 @@
 
 		{{form}}
 
-
+		
 
 
 	</table>
+	
+
 
 <button type="submit" style="width:200px; margin-left: 400px; margin-top:50px; background:green; cursor:pointer;">Guardar</button><br>
 </form>
 </div>
+ <!-- esto es lo del selector de calendario-->
+
+ 
+
+<div>
+	
+
+
+<table class="table table-bordered" style ="color: black;">
+	<head>
+
+		<tr >  <!-- tr es la correspondiente  fila !-->
+
+
+      <th colspan="3" class="text-center"> <!-- th es la correspondiente  columna, colspan es para que tenga 3 columnas !-->
+
+        Carro compras
+
+
+
+      </th>
+
+
+</tr>
+
+
+
+	</head>
+
+<br>
+
+<tbody>
+
+<tr>
+
+	<th>
+
+             <a href=""><h3 style="background: red;">body0</h3></a>
+
+
+
+
+
+	</th>
+	<th>
+		<h3 style="background: red;">body2</h3>
+	</th>
+
+	<th>
+		<h3 style="background: red;">body3</h3>
+	</th>
+
+
+
+
+
+
+</tr>
+<tr>
+<th>
+	<h3 style="background: red;">body4</h3>
+</th>
+
+	<th>
+	<h3 style="background: red;">body5</h3>
+</th>
+
+	<th>
+	<h3 style="background: red;">body6</h3>
+</th>
+</tr>
+
+
+</tbody>
+
+
+
+
+
+</table>
+
+</div>
+        
 		<!-- JQUERY -->
 		<script src="{% static 'persona/js/jquery-3.3.1.min.js '%}"></script>
 
@@ -59,6 +152,10 @@
 		<script src="{% static 'persona/js/jquery.steps.js '%}"></script>
 		<script src="{% static 'persona/js/main.js '% }"></script>
 		<!-- Template created and distributed by Colorlib -->
+
+
+
+	
 
 
 </body>
