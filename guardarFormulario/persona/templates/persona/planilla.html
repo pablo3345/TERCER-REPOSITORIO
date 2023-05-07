@@ -15,7 +15,7 @@
 
 	 
 
-
+	 
 
 
 	
@@ -28,6 +28,24 @@
 
 
 <div>
+
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	
+	
+	<script>
+		// This code activates flatpickr on fields with the 'datetimefield' class when the document has loaded
+		window.addEventListener("DOMContentLoaded", function () {
+			flatpickr(".datetimefield", {
+				enableTime: true,
+				enableSeconds: true,
+				dateFormat: "d-m-Y H:i:S",
+			});
+		});
+	</script>
+
+
+
 		{% if messages %}  <!-- si hay algun tipo de mensajes a la hora de validar este formulario, me tienes que recorrer con un for!-->
      <ul style="background:green; text-align:center; color:white;">
 		 {% for mensaje in messages %} <!--  recorro con un for los mensajes de error, advertencia etc!-->
@@ -48,14 +66,18 @@
 
 
     <h2 style="margin-left:400px;">REGISTRARSE</h2><br>
-	<table class="form-control">
+	<table>
 
 		{{form}}
+		
+
+		
 
 		
 
 
 	</table>
+	<p style="color:red;">* campos obligatorios</p1>
 	
 
 
@@ -150,7 +172,7 @@
 
 		<!-- JQUERY STEP -->
 		<script src="{% static 'persona/js/jquery.steps.js '%}"></script>
-		<script src="{% static 'persona/js/main.js '% }"></script>
+		<script src="{% static 'persona/js/main.js ' %}"> </script>
 		<!-- Template created and distributed by Colorlib -->
 
 

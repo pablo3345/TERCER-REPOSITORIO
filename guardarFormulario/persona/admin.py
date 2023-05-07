@@ -4,8 +4,8 @@ from .models import Personas
 
 class PersonaAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'updated')
-    list_display = ("nombre", "apellido", "direccion", "telefono", "codigo_postal", "created", "updated")
-    radio_fields = {'sexo': admin.VERTICAL}
+    list_display = ("fecha_inicio", "fecha_final","precio_noche", "precio_semana", "created", "updated")
+ 
 
 
 

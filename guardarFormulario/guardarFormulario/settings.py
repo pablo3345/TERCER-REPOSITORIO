@@ -111,22 +111,41 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+
+#LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-eu'
+
+#TIME_ZONE = 'UTC'
+TIME_ZONE='America/Argentina/Buenos_Aires'
 
 USE_I18N = True
 
 USE_L10N = True
 
 #USE_TZ = True
-USE_TZ = False #lo cambie a falso a ver si me pone bien la hora cuando ingreso un registro
+USE_TZ = False  #lo cambie a falso a ver si me pone bien la hora cuando ingreso un registro
 
+#DATE_FORMAT =  "%Y-%m-%d %H:%M",
 
+#DATETIME_INPUT_FORMATS = ["%Y-%m-%d %H:%M"]
+'''DATETIME_INPUT_FORMATS =[
+    "%Y-%m-%d %H:%M:%S",  # '2006-10-25 14:30:59'
+    "%Y-%m-%d %H:%M:%S.%f",  # '2006-10-25 14:30:59.000200'
+    "%Y-%m-%d %H:%M",  # '2006-10-25 14:30'
+    "%m/%d/%Y %H:%M:%S",  # '10/25/2006 14:30:59'
+    "%m/%d/%Y %H:%M:%S.%f",  # '10/25/2006 14:30:59.000200'
+    "%m/%d/%Y %H:%M",  # '10/25/2006 14:30'
+    "%m/%d/%y %H:%M:%S",  # '10/25/06 14:30:59'
+    "%m/%d/%y %H:%M:%S.%f",  # '10/25/06 14:30:59.000200'
+    "%m/%d/%y %H:%M",  # '10/25/06 14:30'
+]'''
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
 
 '''MESSAGE_TAGS = { # TAGS viene de etiqueta "debug" nombro la etiqueta, abajo escribi todas las etiquetas x si mas adelante las voy a usar
 
