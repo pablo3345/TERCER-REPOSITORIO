@@ -27,7 +27,7 @@ def llenarPlanilla(request):
   
     precio_noches = request.POST.get("precio_noche")
     precio_semanas = request.POST.get("precio_semana")
-    fecha_inicios = request.POST.get("fecha_inicio")
+    fecha_final = request.POST.get("fecha_final")
     #fecha_salidas = request.POST.get("fecha_final")
     
    
@@ -36,11 +36,11 @@ def llenarPlanilla(request):
 
     if request.method =='POST':
          fechaConvertida = datetime.datetime.strptime(fecha_inicios, '%Y-%m-%dT%H:%M') # strptime lo convierto a objeto datetime, el segundo parametro le dice como interpretar la fecha, cual es la hora, el dia, el mes etc
-       # fechaFormateada = fecha.strftime('%d / %m / %Y')  #Para dar formato a la fecha la que quiero
+       # fechaFormateada = fecha.strftime('%d / %m / %Y')  #Para dar el formato que quiero
          fechaFormateada = fechaConvertida.strftime('%Y-%m-%dT%H:%M') 
          print("la fecha formateada es :", fechaFormateada)
         
-         fechaConvertida2 = datetime.datetime.strptime(fecha_inicios, '%Y-%m-%dT%H:%M')
+         fechaConvertida2 = datetime.datetime.strptime(fecha_final, '%Y-%m-%dT%H:%M')
          fechaFormateada2 = fechaConvertida2.strftime('%Y-%m-%dT%H:%M') 
          
         
