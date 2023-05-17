@@ -11,10 +11,12 @@ class Personas(models.Model):
     
     #-----------------------------------------------------------------------------------------
     precio_noche = models.FloatField()
-    precio_semana = models.FloatField(null=True, blank=True)
+    precio_semana = models.FloatField(null= True)
     #----------------------------------fecha----------------------------------------------------------
     #fecha_inicio = models.DateTimeField(auto_now=False)
    # fecha_final = models.DateTimeField(auto_now=False)
+   
+    nonmbre = models.CharField(max_length=10, unique=True)
     
     
     #--------------------------------------------------------------------------------------------------

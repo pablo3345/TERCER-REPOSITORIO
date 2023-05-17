@@ -16,7 +16,7 @@ class DateTimeInput(forms.DateTimeInput):
 
 class PersonaForm(forms.ModelForm):
   
-    
+  
        
 
     class Meta:
@@ -32,7 +32,8 @@ class PersonaForm(forms.ModelForm):
             'fecha_inicio',
             'fecha_final',
             'precio_noche',
-            'precio_semana'
+            'precio_semana',
+            'nonmbre'
           
 
 
@@ -44,7 +45,8 @@ class PersonaForm(forms.ModelForm):
             'fecha_inicio': 'fecha inicio*',
             'fecha_final': 'fecha final*',
             'precio_noche': 'precio noche*',
-            'precio_semana': 'precio semana'
+            'precio_semana': 'precio semana',
+            'nonmbre': 'nombre'
          
 
 
@@ -59,12 +61,12 @@ class PersonaForm(forms.ModelForm):
             'precio_semana': forms.NumberInput(),
          
           'fecha_inicio': DateTimeInput(),
-          'fecha_final': DateTimeInput(),
+          'fecha_final': DateTimeInput(), # dateTimeINput() viene de la clase de arriba que puse
+          'nonmbre': forms.TextInput()
           
            
             #attrs={'class':'form-row'} poner en () ejemplo TextInput() seria la clase de bootdtrap
             #attrs={'placeholder':'Phone Number'} poner esto en el text input en gris pero que se puede escribir arriba de la palabra
-
 
         }
 

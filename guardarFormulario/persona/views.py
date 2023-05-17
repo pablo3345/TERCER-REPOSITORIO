@@ -29,6 +29,7 @@ def llenarPlanilla(request):
     precio_semanas = request.POST.get("precio_semana")
     fecha_final = request.POST.get("fecha_final")
     #fecha_salidas = request.POST.get("fecha_final")
+    nombre= request.POST.get("nonmbre")
     
    
 
@@ -43,6 +44,44 @@ def llenarPlanilla(request):
          fechaConvertida2 = datetime.datetime.strptime(fecha_final, '%Y-%m-%dT%H:%M')
          fechaFormateada2 = fechaConvertida2.strftime('%Y-%m-%dT%H:%M') 
          
+          #......................convierto el dia en entero..................
+       # VIDEO EN YOUTUBE 'MODULO DEATETIME: MANEJO DE FECHAS Y HORAS EN PYTHON'
+         
+         dia_entero =  int(fechaConvertida.strftime('%d')) #con esto transformo el dia a entero
+         
+          #.........................comparar fechas (todas se comparan con datetime)..............
+         fechaConvertida = datetime.datetime.strptime(fecha_inicios, '%Y-%m-%dT%H:%M')
+         fechaConvertida2 = datetime.datetime.strptime(fecha_final, '%Y-%m-%dT%H:%M')
+         
+         diferencia = fechaConvertida2-fechaConvertida
+         
+        # print(diferencia)
+         
+        
+        
+          
+         #...........poner un delta de fecha para que me calcule a partir de 5 dias por ejemplo. (tambien con datetime)..........
+         
+         dia_delta = datetime.timedelta(days=5)#timedelta es una instacia de datetime
+        # fechaInicial = datetime.date.today() #fecha de hoy creo (con esta fecha me funcionaba bien)
+       
+         print("la fecha inicial es ", fechaConvertida)
+         fechaFutura = fechaConvertida+ dia_delta
+         print("la fecha futura es:", fechaFutura)
+         
+         #-------------------fecha en formato isoFormat (puede ser util para otra cosa)-----------
+         
+         fecha = datetime.datetime.now().isoformat()
+        
+         
+         
+         
+  
+ 
+  
+       
+      
+        
         
          if form.is_valid:
               
@@ -50,46 +89,21 @@ def llenarPlanilla(request):
               persona.precio_semana=precio_semanas
               persona.fecha_inicio=fechaFormateada
               persona.fecha_final=fechaFormateada2
-              
+              persona.nonmbre=nombre
               try:
               
-               persona.save()
-               messages.success(request, "la Persona se guardo correctamente")
+               #persona.save()
+                     messages.success(request, "la Persona se guardo correctamente")
                
                
               except:
                     
-               messages.error(request, "la Persona no se guardo correctamente")
+                     messages.error(request, "la Persona no se guardo correctamente")
               
               return redirect('LLenarPlanilla')
         
         
-              
-              
-              
-      
-       
-      
-        
-        
-        
-        
-        
-      
-       
-       # form =PersonaForm(request.POST)
-       # if form.is_valid(): #vamos a preguntar si los datos que se ingresaron son validos
-       
-     
-         
-             #
-              
-     
-           #messages.add_message(request=request, level= messages.SUCCESS, message= "la Persona se guardo correctamente")
-      
-
-
-
+           
     else:
         form = PersonaForm() # si no es un post le decimos que nos vuelva a renderizar el formulario
 
@@ -98,11 +112,14 @@ def llenarPlanilla(request):
 
 
 
-  #   nombres = request.POST.get('nombre')#  con esto parece que obtengo el dato del input text del html, xq al input le puse el nombre
+  
 
-
-
-    #return render(request, "persona/planilla.html")
-
-
-
+         
+         
+         
+  
+ 
+  
+  
+  
+ 
