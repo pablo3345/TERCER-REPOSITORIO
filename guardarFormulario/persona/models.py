@@ -35,28 +35,43 @@ class Personas(models.Model):
          ordering = ['id']  # significa que se va a ordenar por id
          
          
-    def calcularFechas(fecha_inicios, fecha_final):
-        
+    def calcularFechas(request, fecha_inicios, fecha_final):
+       
         
         fechaConvertida = datetime.datetime.strptime(fecha_inicios, '%Y-%m-%dT%H:%M') # strptime lo convierto a objeto datetime, el segundo parametro le dice como interpretar la fecha, cual es la hora, el dia, el mes etc
         fechaConvertida2 = datetime.datetime.strptime(fecha_final, '%Y-%m-%dT%H:%M')
          
         diferencia = fechaConvertida2-fechaConvertida
-          
-        if fechaConvertida.hour <12:
+       
+        if fechaConvertida.hour <12 and diferencia.days >0:
            diferenciaConvertida = diferencia.days
            diferenciaConvertida = diferenciaConvertida #+1
            print(diferenciaConvertida)
+       
+         
         elif fechaConvertida.hour >= 12 and fechaConvertida.minute>00:
              diferenciaConvertida = diferencia.days
              diferenciaConvertida = diferenciaConvertida+1 #+2
-             print(diferenciaConvertida, "debo sumarle dos")
+             print(diferenciaConvertida, "debo sumarle uno")
              
         elif fechaConvertida.hour ==12 and fechaConvertida.minute ==00:
              diferenciaConvertida = diferencia.days
              diferenciaConvertida = diferenciaConvertida #+1
          
              print("igual a 12", diferenciaConvertida)
+             
+        else:
+             diferenciaConvertida=1
+             print("menos de un dia", diferenciaConvertida)
+             
+       
+             
+        
+       
+       
+          
+             
+      
              
        
 
