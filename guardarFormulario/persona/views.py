@@ -5,6 +5,7 @@ from persona.models import Personas
 from django.contrib import messages
 from persona.forms import PersonaForm
 
+
 #from django.contrib.admin.widgets import  AdminDateWidget, AdminTimeWidget, AdminSplitDateTime
 
 # Create your views here.
@@ -55,7 +56,9 @@ def llenarPlanilla(request):
          
          diferencia = fechaConvertida2-fechaConvertida
          
-        # print(diferencia)
+         #print("la diferencia de dias es ", diferencia)
+         
+         persona.calcularFechas(fecha_inicios, fecha_final)
          
         
         
@@ -65,16 +68,59 @@ def llenarPlanilla(request):
          dia_delta = datetime.timedelta(days=5)#timedelta es una instacia de datetime
         # fechaInicial = datetime.date.today() #fecha de hoy creo (con esta fecha me funcionaba bien)
        
-         print("la fecha inicial es ", fechaConvertida)
-         fechaFutura = fechaConvertida+ dia_delta
-         print("la fecha futura es:", fechaFutura)
+         
          
          #-------------------fecha en formato isoFormat (puede ser util para otra cosa)-----------
          
          fecha = datetime.datetime.now().isoformat()
+       
+        
+         #...................................probando codigo para el hotel.......................................................
+         
+         
+        
+         #print(fechaConvertida.weekday())
+         
+       
+        
+         """ if fechaConvertida.hour <12:
+           diferenciaConvertida = diferencia.days
+           diferenciaConvertida = diferenciaConvertida #+1
+           print(diferenciaConvertida)
+         elif fechaConvertida.hour >= 12 and fechaConvertida.minute>00:
+             diferenciaConvertida = diferencia.days
+             diferenciaConvertida = diferenciaConvertida+1 #+2
+             print(diferenciaConvertida, "debo sumarle dos")
+             
+         elif fechaConvertida.hour ==12 and fechaConvertida.minute ==00:
+             diferenciaConvertida = diferencia.days
+             diferenciaConvertida = diferenciaConvertida #+1
+         
+             print("igual a 12", diferenciaConvertida)
+              """
+        
         
          
+           
+           
+           
+           
+           
          
+         
+        
+       
+      
+       
+         
+           #dia_delta = datetime.timedelta(hauers=24)
+       
+           #print("las noches a cobrar son", diferenciaConvertida)
+          
+         
+          
+           
+            
          
   
  
