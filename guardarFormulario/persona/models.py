@@ -42,38 +42,94 @@ class Personas(models.Model):
         fechaConvertida2 = datetime.datetime.strptime(fecha_final, '%Y-%m-%dT%H:%M')
          
         diferencia = fechaConvertida2-fechaConvertida
+        
+        #--------------------check out 12-----------------------------
+        
+        if fechaConvertida2.hour ==12 and fechaConvertida2.minute ==00:
        
-        if fechaConvertida.hour <12 and diferencia.days >0:
+         if fechaConvertida.hour <12 and diferencia.days >00:
            diferenciaConvertida = diferencia.days
            diferenciaConvertida = diferenciaConvertida #+1
            print(diferenciaConvertida)
        
          
-        elif fechaConvertida.hour >= 12 and fechaConvertida.minute>00:
+         elif fechaConvertida.hour >= 12 and fechaConvertida.minute>00:
              diferenciaConvertida = diferencia.days
              diferenciaConvertida = diferenciaConvertida+1 #+2
              print(diferenciaConvertida, "debo sumarle uno")
              
-        elif fechaConvertida.hour ==12 and fechaConvertida.minute ==00:
+         elif fechaConvertida.hour ==12 and fechaConvertida.minute ==00:
              diferenciaConvertida = diferencia.days
              diferenciaConvertida = diferenciaConvertida #+1
          
              print("igual a 12", diferenciaConvertida)
              
-        else:
+         else:
              diferenciaConvertida=1
              print("menos de un dia", diferenciaConvertida)
              
+     #--------------------------check out 10--------------------------
+        if fechaConvertida2.hour ==10 and fechaConvertida2.minute ==00:
+       
+         if fechaConvertida.hour <10 and diferencia.days >00:
+           diferenciaConvertida = diferencia.days
+           diferenciaConvertida = diferenciaConvertida #+1
+           print(diferenciaConvertida)
+       
+         
+         elif fechaConvertida.hour >= 10 and fechaConvertida.minute>00:
+             diferenciaConvertida = diferencia.days
+             diferenciaConvertida = diferenciaConvertida+1 #+2
+             print(diferenciaConvertida, "(10) debo sumarle uno")
+             
+         elif fechaConvertida.hour ==10 and fechaConvertida.minute ==00:
+             diferenciaConvertida = diferencia.days
+             diferenciaConvertida = diferenciaConvertida #+1
+         
+             print("igual a 10 (10)", diferenciaConvertida)
+             
+         else:
+             diferenciaConvertida=1
+             print("menos de un dia (10)", diferenciaConvertida)
+             
+#-------------------------check out 11----------------------------------------
+        if fechaConvertida2.hour ==11 and fechaConvertida2.minute ==00:
+       
+         if fechaConvertida.hour <11 and diferencia.days >00:
+           diferenciaConvertida = diferencia.days
+           diferenciaConvertida = diferenciaConvertida #+1
+           print(diferenciaConvertida)
+       
+         
+         elif fechaConvertida.hour >= 11 and fechaConvertida.minute>00:
+             diferenciaConvertida = diferencia.days
+             diferenciaConvertida = diferenciaConvertida+1 #+2
+             print(diferenciaConvertida, "(11) debo sumarle uno")
+             
+         elif fechaConvertida.hour ==11 and fechaConvertida.minute ==00:
+             diferenciaConvertida = diferencia.days
+             diferenciaConvertida = diferenciaConvertida #+1
+         
+             print("igual a 11 (11)", diferenciaConvertida)
+             
+         else:
+             diferenciaConvertida=1
+             print("menos de un dia (11)", diferenciaConvertida)
+             
+
+             
+    
+             
+             
+            
+             
+             
        
              
-        
-       
-       
-          
+    
              
-      
+             
+            
+             
              
        
-
-
-
