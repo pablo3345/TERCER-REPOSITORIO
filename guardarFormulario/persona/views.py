@@ -24,9 +24,9 @@ def llenarPlanilla(request):
     form = PersonaForm()
     persona=Personas()
     fecha_inicios = request.POST.get("fecha_inicio")
-    
+   
   
-    precio_noches = request.POST.get("precio_noche")
+    
     precio_semanas = request.POST.get("precio_semana")
     fecha_final = request.POST.get("fecha_final")
     #fecha_salidas = request.POST.get("fecha_final")
@@ -45,6 +45,8 @@ def llenarPlanilla(request):
          fechaConvertida2 = datetime.datetime.strptime(fecha_final, '%Y-%m-%dT%H:%M')
          fechaFormateada2 = fechaConvertida2.strftime('%Y-%m-%dT%H:%M') 
          
+         precio_noches = request.POST.get("precio_noche")
+         
           #......................convierto el dia en entero..................
        # VIDEO EN YOUTUBE 'MODULO DEATETIME: MANEJO DE FECHAS Y HORAS EN PYTHON'
          
@@ -58,7 +60,7 @@ def llenarPlanilla(request):
          
          #print("la diferencia de dias es ", diferencia)
          
-         persona.calcularFechas(fecha_inicios, fecha_final)
+         
          
         
         
@@ -75,7 +77,7 @@ def llenarPlanilla(request):
          fecha = datetime.datetime.now().isoformat()
        
         
-         #...................................probando codigo para el hotel.......................................................
+         #...................................probando codigo para el hotel..............................
          
          
         
@@ -136,9 +138,12 @@ def llenarPlanilla(request):
               persona.fecha_inicio=fechaFormateada
               persona.fecha_final=fechaFormateada2
               persona.nonmbre=nombre
+             
               try:
               
-               #persona.save()
+                     #persona.save()
+                     persona.calcularFechas(fecha_inicios, fecha_final)
+                    
                      messages.success(request, "la Persona se guardo correctamente")
                
                
