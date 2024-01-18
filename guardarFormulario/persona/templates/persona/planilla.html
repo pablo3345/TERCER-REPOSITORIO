@@ -25,15 +25,22 @@
 </head>
 <body>
 
-
+	<!-- {% if messages %}
+    {% for message in messages %}
+        <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}-->
 
 <div>
 
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	<!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> -->
 	
 	
-	<script>
+	<!-- <script>
 		// This code activates flatpickr on fields with the 'datetimefield' class when the document has loaded
 		window.addEventListener("DOMContentLoaded", function () {
 			flatpickr(".datetimefield", {
@@ -42,20 +49,19 @@
 				dateFormat: "d-m-Y H:i:S",
 			});
 		});
-	</script>
+	</script> -->
 
 
 
-		{% if messages %}  <!-- si hay algun tipo de mensajes a la hora de validar este formulario, me tienes que recorrer con un for!-->
+		{% if messages %} <!-- si hay algun tipo de mensajes a la hora de validar este formulario, me tienes que recorrer con un for! -->
      <ul style="background:green; text-align:center; color:white;">
-		 {% for mensaje in messages %} <!--  recorro con un for los mensajes de error, advertencia etc!-->
+		 {% for mensaje in messages %} <!-- recorro con un for los mensajes de error, advertencia etc! -->
 		 <li {% if mensaje.tags %} {{mensaje.tags}} {% endif %}>{{mensaje}}</li>
      {% endfor %}
 	 </ul>
-	{% endif %}
-
+	{% endif %} 
 	
-
+<h2 style="margin-left:600px;">REGISTRARSE</h2><br>
 <form method ="post"  enctype="multipart/form-data">
 	{% csrf_token %}
 
@@ -65,8 +71,8 @@
 
 
 
-    <h2 style="margin-left:400px;">REGISTRARSE</h2><br>
-	<table>
+  
+	<table style="margin:auto;">
 
 		
 		
@@ -76,12 +82,12 @@
 		
 
 
-	</table>
-	<p style="color:red;">* campos obligatorios</p1>
+	</table><br>
+	<p style="color:red; margin:auto;">* campos obligatorios</p1><br>
 	
 
 
-<button type="submit" style="width:200px; margin-left: 400px; margin-top:50px; background:green; cursor:pointer;">Guardar</button><br>
+<button type="submit" style="width:200px; margin:auto; margin-top:50px; background:green; cursor:pointer;">Guardar</button><br>
 </form>
 </div>
  <!-- esto es lo del selector de calendario-->
@@ -92,7 +98,7 @@
 	
 
 
-<table class="table table-bordered" style ="color: black;">
+<table class="table table-bordered" style ="color: black; margin:auto;">
 	<head>
 
 		<tr >  <!-- tr es la correspondiente  fila !-->
@@ -168,7 +174,7 @@
 
 </tbody>
 
-<h1>HOLA A TODOS HOLA MUNDO...</h1>
+
 
 
 

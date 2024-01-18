@@ -46,7 +46,7 @@ class PersonaForm(forms.ModelForm):
             'fecha_final': 'fecha final*',
             'precio_noche': 'precio noche*',
             'precio_semana': 'precio semana',
-            'nonmbre': 'nombre'
+            'nonmbre': 'nombre unico'
          
 
 

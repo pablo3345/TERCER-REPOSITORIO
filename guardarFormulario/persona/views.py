@@ -141,8 +141,8 @@ def llenarPlanilla(request):
              
               try:
               
-                     #persona.save()
-                     persona.calcularFechas(fecha_inicios, fecha_final)
+                     persona.save()
+                    # persona.calcularFechas(fecha_inicios, fecha_final)
                     
                      messages.success(request, "la Persona se guardo correctamente")
                
