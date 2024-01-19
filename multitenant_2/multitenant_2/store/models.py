@@ -24,3 +24,19 @@ class Category(models.Model):
       def __str__(self):
         return self.name
     
+    
+class Procedencia(models.Model):
+  
+   pais = models.CharField(max_length=50)
+   ciudad = models.CharField(max_length=50)
+   
+   def __str__(self):
+        return self.pais
+    
+   
+   
+    
+    
+   
+  
+  
