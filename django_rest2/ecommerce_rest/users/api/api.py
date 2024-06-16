@@ -1,6 +1,6 @@
 from rest_framework.views import APIView # seria como una vista en django
 from users.models import User
-from users.api.serializers import UserSerializer
+from users.api.serializers import UserSerializer, TestUserSerializador
 from rest_framework.response import Response
 from rest_framework.decorators import api_view #un decorador para las vistas basadas en funcion y no de clases
 from rest_framework import status
@@ -31,8 +31,7 @@ def user_api_view(request): # es una vista basada en funcion x eso va request
    elif request.method=='POST': # sino lo envia por get puede enviarlo por post y desde la pagina puedo crear un superusuario pasandole el json 
        print(request.data) # en request.data almacena los datos del POST '''
        
-       #--volver atras----------------------------------------------------------
-
+    
 #una vista basada en funcion
 @api_view(['GET', 'POST']) # va GET o POST (puedo usar uno o ambos) xq es el metodo http que va a permitir
 def user_api_view(request): # es una vista basada en funcion x eso va request
@@ -41,7 +40,20 @@ def user_api_view(request): # es una vista basada en funcion x eso va request
         
         users = User.objects.all()
         userSerializer = UserSerializer(users, many=True)# con meny=True, le digo que no me traiga un users, sino todo el listado de users, aca me lo convierte en json
+        #----------------------------------------------------------------------------------------------
+        # aqui creo el diccionario para enviarle al serializador, class TestUserSerializador(serializers.Serializer):
         
+        test_data={'name': 'Valentino', 
+                   'email': 'valen@yahoo.com.ar'}
+        
+        
+        test_user= TestUserSerializador(data=test_data)
+        if test_user.is_valid():
+           print("paso la validacion el test_user...")
+        
+        
+        
+        #-------------------------------------------------------------------------------------------------
         return Response(userSerializer.data, status= status.HTTP_200_OK) # pongo userSerializer xq esa variable me contiene el json y agregarle .data para que me retorne el json
      # el status para obtener un usuario con GET seria 200 correcto ok
     
