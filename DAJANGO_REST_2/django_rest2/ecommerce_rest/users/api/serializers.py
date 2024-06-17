@@ -49,3 +49,7 @@ class TestUserSerializador(serializers.Serializer): # no tiene como parametro Mo
     return data
  
  # osea funciona asi primero pregunta si existe el nombre y el email con def validate_name y  def validate_email y por ultimo pasa al def validate
+ 
+  def create(self, validated_data): # create es cuando hago un post o sea cuando guardo un usuario, validated_data es simplemente la informacion validada que recibio el serializador
+   return User.objects.create(**validated_data) # es un diccionario entonces con los dos ** le digo a python que tenga en cuenta los valores y no las claves, y pongo User xq debe tener un modelo para guardar
+  # print(validated_data)

@@ -20,4 +20,3 @@ DATABASES = {
 
 STATIC_URL = 'static/'
 
-#para probar el Git

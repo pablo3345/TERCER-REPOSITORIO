@@ -43,12 +43,13 @@ def user_api_view(request): # es una vista basada en funcion x eso va request
         #----------------------------------------------------------------------------------------------
         # aqui creo el diccionario para enviarle al serializador, class TestUserSerializador(serializers.Serializer):
         
-        test_data={'name': 'Valentino', 
-                   'email': 'guitarra@yahoo.com.ar'}
+        test_data={'name': 'Armando', 
+                   'email': 'bateria@yahoo.com.ar'}
         
         
         test_user= TestUserSerializador(data=test_data, context=test_data) # con context=test_data le envio todo el diccionario
         if test_user.is_valid():
+           user_instance = test_user.save()
            print("paso la validacion el test_user...")
            
         else:
@@ -90,7 +91,7 @@ def user_detail_view(request, pk=None):
          user_serializer=UserSerializer(user, data=request.data) # sea PUT o POST con request.data llega la informacion al serielizador
          # a diferencia del POST aca en el PUT le envio el user que es la instacia que se va actualizar y luego el data=request.data
          if user_serializer.is_valid():
-            user_serializer.save()
+            user_serializer.save() # cuando pongo .save() llamo a la funcion del serializador  def create(self, validated_data):
             return Response(user_serializer.data, status= status.HTTP_200_OK)
          # como en la documentacion no aparecia ningun status para actualizado con 200 ok esta bien
         
