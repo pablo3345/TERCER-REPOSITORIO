@@ -43,8 +43,8 @@ def user_api_view(request): # es una vista basada en funcion x eso va request
         #----------------------------------------------------------------------------------------------
         # aqui creo el diccionario para enviarle al serializador, class TestUserSerializador(serializers.Serializer):
         
-        test_data={'name': 'Armando', 
-                   'email': 'bateria@yahoo.com.ar'}
+        test_data={'name': 'Carlos', 
+                   'email': 'calo@yahoo.com.ar'}
         
         
         test_user= TestUserSerializador(data=test_data, context=test_data) # con context=test_data le envio todo el diccionario
@@ -104,4 +104,6 @@ def user_detail_view(request, pk=None):
        
        
    return Response({'message': 'no se ha encontrado el usuario con esos datos'}, status= status.HTTP_400_BAD_REQUEST)# si no hay usuario me retornas este mensaje, aca seria como el else del if de arriba, y error 400 xq si no encontro el usario debe haber un error
+   
+   
    

@@ -53,3 +53,6 @@ class TestUserSerializador(serializers.Serializer): # no tiene como parametro Mo
   def create(self, validated_data): # create es cuando hago un post o sea cuando guardo un usuario, validated_data es simplemente la informacion validada que recibio el serializador
    return User.objects.create(**validated_data) # es un diccionario entonces con los dos ** le digo a python que tenga en cuenta los valores y no las claves, y pongo User xq debe tener un modelo para guardar
   # print(validated_data)
+  
+  
+  # aparentemente haciendo un print parece que primero ejecuta lo que hay dentro de la funcion del serializer y luego lo de la vista
