@@ -44,12 +44,15 @@ def user_api_view(request): # es una vista basada en funcion x eso va request
         # aqui creo el diccionario para enviarle al serializador, class TestUserSerializador(serializers.Serializer):
         
         test_data={'name': 'Valentino', 
-                   'email': 'valen@yahoo.com.ar'}
+                   'email': 'guitarra@yahoo.com.ar'}
         
         
-        test_user= TestUserSerializador(data=test_data)
+        test_user= TestUserSerializador(data=test_data, context=test_data) # con context=test_data le envio todo el diccionario
         if test_user.is_valid():
            print("paso la validacion el test_user...")
+           
+        else:
+           print(test_user.errors)
         
         
         

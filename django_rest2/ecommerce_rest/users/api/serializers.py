@@ -19,21 +19,33 @@ class TestUserSerializador(serializers.Serializer): # no tiene como parametro Mo
   name = serializers.CharField(max_length=200)
   email = serializers.EmailField()
   
-  def validate_name(self,value):
+  def validate_name(self,value): # validaciones
     
-    print(value)# aca tiene que pintarme el nombre que puse en la vista user_api_view seria Valentino
+    #print(value)# aca tiene que pintarme el nombre que puse en la vista si estaria el print user_api_view seria Valentino
+    # esto es una validacion personalizada, cuando es basado en un modelo no ahorramos estas validaciones
+    if 'ghdrhfdhdrh' in value: # fijarme que Vele, Valen, Valentino me lo reconoce como true tambien
+      raise serializers.ValidationError('no puede existir un usuario con ese nombre')
+   # print(value) 
+   
+    print(self.context) # accedo al context que en la vista lo puse para obtener todo el diccionario y no solo al name
     
     return value # para que me retorne el valor
- 
+  # validacion personalizada, cuando es basado en un modelo no ahorramos estas validaciones
   def validate_email(self,value): # aca tiene que pintarme el email que puse en la vista user_api_view seria valen@yahoo.com.ar
-    
-    print(value)
-    
+    if value =="":
+       raise serializers.ValidationError('tiene que indicar un correo')
+   # print(value)
+   
+    if self.context['name'] in value: # aca estando solo en el email puedo acceder al name xq en la vista le agregue el contexto (context), para obtener todo el diccionario
+       raise serializers.ValidationError('el nombre no puede pertenecer al correo')
+     # tambien puedo llamar a la funcion de arriba del name para validar correctamente ej if self.validate_name(self.context['name']) in value: 
     return value
  
 
-  def validate(self,data):
-    print("validate general") # primero pinta esto y despues pinta el print de la vista
+  def validate(self,data): # como aca ya no tengo los campos independientes sino el conjunto de campos con data, pero conviene usarlo para otro tipos de error xq asi no me indica el error especifico del name o email
+   # if data['name'] in data['email']:
+       # raise serializers.ValidationError('el nombre no puede pertenecer al correo')
+   # print("validate general") # primero pinta esto y despues pinta el print de la vista
     return data
  
  # osea funciona asi primero pregunta si existe el nombre y el email con def validate_name y  def validate_email y por ultimo pasa al def validate
