@@ -43,7 +43,9 @@ def user_api_view(request): # es una vista basada en funcion x eso va request
         #----------------------------------------------------------------------------------------------
         # aqui creo el diccionario para enviarle al serializador, class TestUserSerializador(serializers.Serializer):
         
-        test_data={'name': 'Carlos', 
+        
+        #---esto lo use para el seializador  def create(self, validated_data):
+        '''test_data={'name': 'Carlos', 
                    'email': 'calo@yahoo.com.ar'}
         
         
@@ -53,8 +55,8 @@ def user_api_view(request): # es una vista basada en funcion x eso va request
            print("paso la validacion el test_user...")
            
         else:
-           print(test_user.errors)
-        
+           print(test_user.errors)'''
+       #------------------------------------------------------------------------- 
         
         
         #-------------------------------------------------------------------------------------------------
@@ -88,10 +90,13 @@ def user_detail_view(request, pk=None):
    
     elif request.method=='PUT': # para actualizar un usuario en rest se usa el metodo PUT
         
-         user_serializer=UserSerializer(user, data=request.data) # sea PUT o POST con request.data llega la informacion al serielizador
+        # user_serializer=UserSerializer(user, data=request.data) # sea PUT o POST con request.data llega la informacion al serielizador
+          # user_serializer=TestUserSerializador(user, data=request.data) 
+         user_serializer=TestUserSerializador(user, data=request.data) # llamo al serializador TestUserSerializador pero le envio la instancia del modelo user, y con data=request.data obtengo los datos
          # a diferencia del POST aca en el PUT le envio el user que es la instacia que se va actualizar y luego el data=request.data
          if user_serializer.is_valid():
-            user_serializer.save() # cuando pongo .save() llamo a la funcion del serializador  def create(self, validated_data):
+            user_serializer.save() # cuando pongo .save() llamo a la funcion del serializador  def create(self, validated_data), o a la funcion del updated
+            print(user_serializer.data) # con esto muestro los datos
             return Response(user_serializer.data, status= status.HTTP_200_OK)
          # como en la documentacion no aparecia ningun status para actualizado con 200 ok esta bien
         

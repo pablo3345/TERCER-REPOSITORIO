@@ -36,8 +36,8 @@ class TestUserSerializador(serializers.Serializer): # no tiene como parametro Mo
        raise serializers.ValidationError('tiene que indicar un correo')
    # print(value)
    
-    if self.context['name'] in value: # aca estando solo en el email puedo acceder al name xq en la vista le agregue el contexto (context), para obtener todo el diccionario
-       raise serializers.ValidationError('el nombre no puede pertenecer al correo')
+    '''if self.context['name'] in value: # aca estando solo en el email puedo acceder al name xq en la vista le agregue el contexto (context), para obtener todo el diccionario
+       raise serializers.ValidationError('el nombre no puede pertenecer al correo')'''
      # tambien puedo llamar a la funcion de arriba del name para validar correctamente ej if self.validate_name(self.context['name']) in value: 
     return value
  
@@ -56,3 +56,10 @@ class TestUserSerializador(serializers.Serializer): # no tiene como parametro Mo
   
   
   # aparentemente haciendo un print parece que primero ejecuta lo que hay dentro de la funcion del serializer y luego lo de la vista
+  
+  def update(self, instance,validated_data ):# es para el metodo actualizar del PUT de la vista, esta funcion updated recibe instance(pero de la vista no la envie a la instance) y  validated_data para validar los datos
+   instance.name = validated_data.get('name', instance.name)
+   instance.email = validated_data.get('email', instance.email)# asi seria para actualizarlo a mano
+   instance.save() # desde la interfaz de ayuda del PUT le envio el diccionario con los nuevos valores
+   
+   return instance # y retorno la instancia
