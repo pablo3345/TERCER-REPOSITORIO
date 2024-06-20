@@ -47,6 +47,10 @@ class User(AbstractBaseUser, PermissionsMixin): # es un usuario comun y corrient
 
     def __str__(self):
         return f'{self.name} {self.last_name}'
+    
+    
+    '''def save(self, *args, **kwargs ): # como en el serializador en updated() puse save() para guardar, ese save() pertenece a este modelo entonces me imprime holaaaaaaaaaaaa
+        print("holaaaaaaaaaaaaa")'''
  
  
  

@@ -60,6 +60,19 @@ class TestUserSerializador(serializers.Serializer): # no tiene como parametro Mo
   def update(self, instance,validated_data ):# es para el metodo actualizar del PUT de la vista, esta funcion updated recibe instance(pero de la vista no la envie a la instance) y  validated_data para validar los datos
    instance.name = validated_data.get('name', instance.name)
    instance.email = validated_data.get('email', instance.email)# asi seria para actualizarlo a mano
-   instance.save() # desde la interfaz de ayuda del PUT le envio el diccionario con los nuevos valores
+   instance.save() # desde la interfaz de ayuda del PUT le envio el diccionario con los nuevos valores, este save() pertenece a una clase osea al modelo, es propia del modelo
+    # osea funciona asi...el save() de la vista llama al metodo del serializador create() o updated(), y el save() del serializador created() o updated() llama al modelo, clase y lo guarda... (aclaro este save() es de guardar NO DE LA FUNCION SAVE() DE ABAJO)
    
    return instance # y retorno la instancia
+ 
+ 
+ 
+ 
+ 
+  #def save(self): # puedo usar este metodo x ejemplo para enviar un correo, por ej sirve para un formulario de contacto, pero sin guardar registros
+    # no nos olvidemos que como en la vista esta el is_valid() primero pasa por las todas las validaciones de arriba
+    
+   # print(self)
+    #send_mail()
+ 
+#termine el video 12
