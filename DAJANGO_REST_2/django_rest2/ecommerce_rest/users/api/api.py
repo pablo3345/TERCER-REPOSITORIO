@@ -38,7 +38,7 @@ def user_api_view(request): # es una vista basada en funcion x eso va request
     
    if request.method == 'GET':
         
-        users = User.objects.all()
+        users = User.objects.all().values('id', 'username', 'email', 'password')# con values obtengo solo esos campos y se lo envio al metodo del serializador  def to_representation(self, instance):
         userSerializer = UserSerializer(users, many=True)# con meny=True, le digo que no me traiga un users, sino todo el listado de users, aca me lo convierte en json
         #----------------------------------------------------------------------------------------------
         # aqui creo el diccionario para enviarle al serializador, class TestUserSerializador(serializers.Serializer):
@@ -90,9 +90,9 @@ def user_detail_view(request, pk=None):
    
     elif request.method=='PUT': # para actualizar un usuario en rest se usa el metodo PUT
         
-        # user_serializer=UserSerializer(user, data=request.data) # sea PUT o POST con request.data llega la informacion al serielizador
+         user_serializer=UserSerializer(user, data=request.data) # sea PUT o POST con request.data llega la informacion al serielizador
           # user_serializer=TestUserSerializador(user, data=request.data) 
-         user_serializer=TestUserSerializador(user, data=request.data) # llamo al serializador TestUserSerializador pero le envio la instancia del modelo user, y con data=request.data obtengo los datos
+       #  user_serializer=TestUserSerializador(user, data=request.data) # llamo al serializador TestUserSerializador pero le envio la instancia del modelo user, y con data=request.data obtengo los datos
          # a diferencia del POST aca en el PUT le envio el user que es la instacia que se va actualizar y luego el data=request.data
          if user_serializer.is_valid():
             user_serializer.save() # cuando pongo .save() llamo a la funcion del serializador  def create(self, validated_data), o a la funcion del updated
@@ -111,4 +111,4 @@ def user_detail_view(request, pk=None):
    return Response({'message': 'no se ha encontrado el usuario con esos datos'}, status= status.HTTP_400_BAD_REQUEST)# si no hay usuario me retornas este mensaje, aca seria como el else del if de arriba, y error 400 xq si no encontro el usario debe haber un error
    
    
-   
+   # volver atras-----------------------------------------------------------------------------------

@@ -11,8 +11,13 @@ class UserSerializer(serializers.ModelSerializer): # va a ser un serielizadors b
      class Meta:
        model =User
        fields = '__all__'   # si quiero campos especificos, hago como en el fields del formModels de django
-       
-    
+       # creo que dijo que para actualizar o crear en el serializador uso la class Meta: y para solo listar o representar uso def to_representation(self, instance):
+     def to_representation(self, instance): # recibe instance como parametro, es decir cada una instancia que le llegan de la consulta desde la vista, sirve para la automatizacion o representar la informacion, en este casa mostrar solo algunos campos que le envio desde la vista, sirve solo para listar un objeto
+      
+       #print(instance)
+       return {'id': instance['id'], 'username': instance['username'],
+               'email': instance['email'], 'password': instance['password']} # va a retornar un diccionario con solo algunos campos que le envie desde la vista
+     
     
 
 class TestUserSerializador(serializers.Serializer): # no tiene como parametro ModelSerializer xq un serializador no siempre esta basado en un modelo
@@ -75,4 +80,4 @@ class TestUserSerializador(serializers.Serializer): # no tiene como parametro Mo
    # print(self)
     #send_mail()
  
-#termine el video 12
+#volver atras-----------------------------------------------------
