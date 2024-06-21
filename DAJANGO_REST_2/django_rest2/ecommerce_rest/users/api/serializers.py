@@ -12,6 +12,28 @@ class UserSerializer(serializers.ModelSerializer): # va a ser un serielizadors b
        model =User
        fields = '__all__'   # si quiero campos especificos, hago como en el fields del formModels de django
        # creo que dijo que para actualizar o crear en el serializador uso la class Meta: y para solo listar o representar uso def to_representation(self, instance):
+       
+       
+       
+     def create(self, validated_data):
+       user=User(**validated_data) #  es un diccionario entonces con los dos ** le digo a python que tenga en cuenta los valores y no las claves
+       user.set_password(validated_data['password'])# para encriptar la contraseña para que el usuario pueda iniciar sesion
+       user.save()
+       return user
+     
+     def update(self, instance, validated_data): # para que me incripte la contraseña tambien cuando actualizo
+       update_user = super().update(instance, validated_data)# super para actualizar los campos que me han enviado de manera automatizada, ya se que se pueden enviar todos los campos, pero pongo super xq no puedo saber que campos me han enviado
+       update_user.set_password(validated_data['password'])
+       update_user.save()
+       return update_user
+     
+     #La función super() en Django se utiliza para acceder a métodos o atributos de una clase padre o superclase. 
+       
+class UserListSerializer(serializers.ModelSerializer): # creo otro serializador  
+  
+     class Meta:
+       model =User    
+       
      def to_representation(self, instance): # recibe instance como parametro, es decir cada una instancia que le llegan de la consulta desde la vista, sirve para la automatizacion o representar la informacion, en este casa mostrar solo algunos campos que le envio desde la vista, sirve solo para listar un objeto
       
        #print(instance)
@@ -80,4 +102,4 @@ class TestUserSerializador(serializers.Serializer): # no tiene como parametro Mo
    # print(self)
     #send_mail()
  
-#volver atras-----------------------------------------------------
+#volver atras---------------------------------------------------------- --------------------

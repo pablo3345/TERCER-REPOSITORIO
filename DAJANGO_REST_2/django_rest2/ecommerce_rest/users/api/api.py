@@ -1,6 +1,6 @@
 from rest_framework.views import APIView # seria como una vista en django
 from users.models import User
-from users.api.serializers import UserSerializer, TestUserSerializador
+from users.api.serializers import UserSerializer, TestUserSerializador, UserListSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view #un decorador para las vistas basadas en funcion y no de clases
 from rest_framework import status
@@ -39,7 +39,8 @@ def user_api_view(request): # es una vista basada en funcion x eso va request
    if request.method == 'GET':
         
         users = User.objects.all().values('id', 'username', 'email', 'password')# con values obtengo solo esos campos y se lo envio al metodo del serializador  def to_representation(self, instance):
-        userSerializer = UserSerializer(users, many=True)# con meny=True, le digo que no me traiga un users, sino todo el listado de users, aca me lo convierte en json
+       # userSerializer = UserSerializer(users, many=True)# con meny=True, le digo que no me traiga un users, sino todo el listado de users, aca me lo convierte en json
+        userSerializer = UserListSerializer(users, many=True)
         #----------------------------------------------------------------------------------------------
         # aqui creo el diccionario para enviarle al serializador, class TestUserSerializador(serializers.Serializer):
         
