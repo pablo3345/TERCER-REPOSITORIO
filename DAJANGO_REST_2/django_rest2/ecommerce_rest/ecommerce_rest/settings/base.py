@@ -42,6 +42,8 @@ BASE_APPS = [# aplicaciones bases las que vienen por defecto
 # las aplicaciones mias las que yo creo
 LOCAL_APPS=[
     'users',
+    'base',
+    'products',
     
     
     
@@ -52,7 +54,7 @@ LOCAL_APPS=[
 THIRD_APPS=[
     
     'rest_framework',
-    'simple_history', # esta libreria que es la que me instale para ver el historial del usuarion, es de terceros x eso se coloca aqui
+    'simple_history', # esta libreria que es la que me instale para ver el historial del usuario, es de terceros x eso se coloca aqui
     
 ]
 
