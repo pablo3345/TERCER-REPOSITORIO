@@ -35,7 +35,7 @@ class CategoryProduct(BaseModel):
 
     # todo: Define fields here
     description = models.CharField('Descripcion', max_length=50, unique=True, null=False, blank=False)
-    Measure_Unit = models.ForeignKey(MeasureUnit, on_delete=models.CASCADE, verbose_name="unidad de medida") # la foreign Key de unidad de medida
+
     historical = HistoricalRecords(user_model="users.User", inherit=True)
  
     @property
