@@ -3,7 +3,7 @@
 #from products.models import MeasureUnit, CategoryProduct, Indicator
 from products.api.serializers.general_serializers import MeasureUnitSerializars, CategoryProductSerializars,  IndicatorSerializers
 
-from base.api import GeneralListApiView # con esta libreria me ahorro de escribir codigo en estas 3 vistas, xq hice una funcion general en api de la aplicacion base que reemplaza estas 3 vistas
+from base.api import GeneralListApiView # aca importo la vista de base.api, me ahorro de escribir codigo en estas 3 vistas, xq hice una funcion general en api de la aplicacion base que reemplaza estas 3 vistas
 
 #antes estas vistas heredaban de generics.ListAPIView, pero las hice generales desde la aplicacion base o padre que es la que heredan
 
