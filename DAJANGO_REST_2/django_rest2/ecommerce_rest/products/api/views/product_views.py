@@ -59,4 +59,40 @@ class ProductDestroyAPIView(generics.DestroyAPIView):# para eliminar un producto
         
           return Response({'error': 'no existe un producto con estos datos'}, status=status.HTTP_400_BAD_REQUEST)# esto seria como el else del if de arriba que dice si hay producto
      
-  
+
+class ProductUpdatedAPIView(generics.UpdateAPIView):
+     
+     serializer_class=ProductSerializer
+     
+     def get_queryset(self, pk): # para actualizar tambien tenemos que pasarle un consulta
+          # lo que tiene django rest para el UpdateAPIView dos metodos PATCH y PUT, con PATCH obtengo la informacion de la instancia y con PUT para actualizar dicha informacion
+          
+          return self.get_serializer().Meta.model.objects.filter(state=True).filter(id=pk).first()
+     
+     
+     def patch(self, request, pk=None): # con PATCH obtengo la informacion y con PUT la actualizo
+          
+         
+           if  self.get_queryset(pk):
+          
+                product_serializer= self.serializer_class(self.get_queryset(pk))
+                return Response(product_serializer.data,status=status.HTTP_200_OK)
+          
+           return Response({'error': 'no existe un producto con estos datos'}, status=status.HTTP_400_BAD_REQUEST) # esto seria como un else del if de arriba, x si no encontro el producto
+          
+         
+     
+     def put(self, request, pk=None): # con PATCH obtengo la informacion y con PUT la actualizo
+          
+            if self.get_queryset(pk):
+                 
+                  product_serializer= self.serializer_class(self.get_queryset(pk), data = request.data)
+                  if product_serializer.is_valid():
+                       product_serializer.save()
+                       return Response(product_serializer.data,status=status.HTTP_200_OK)
+                  
+                  return Response(product_serializer.errors, status=status.HTTP_400_BAD_REQUEST)# el else del if de arriba
+     
+     
+     
+     #-----------------------------------------volver atras----------------------------------------------------

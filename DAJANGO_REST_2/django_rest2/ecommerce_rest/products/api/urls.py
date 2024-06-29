@@ -3,7 +3,7 @@
 from django.urls import path
 
 from products.api.views.general_views import MeasureUnitListAPIView, CategoryProductListAPIView, IndicadorListAPIView
-from products.api.views.product_views import ProductListAPIViews,  ProductCreateAPIView, ProductRetrieveAPIView, ProductDestroyAPIView
+from products.api.views.product_views import ProductListAPIViews,  ProductCreateAPIView, ProductRetrieveAPIView, ProductDestroyAPIView, ProductUpdatedAPIView
 
 
 urlpatterns = [
@@ -13,6 +13,7 @@ urlpatterns = [
     path('product/list/', ProductListAPIViews.as_view(), name ='product_List'),
     path('product/create/',  ProductCreateAPIView.as_view(), name ='product_Create'),
     path('product/retrive/<int:pk>/',  ProductRetrieveAPIView.as_view(), name ='product_retrieve'),
-    path('product/destroy/<int:pk>/',  ProductDestroyAPIView.as_view(), name ='product_destroy')
+    path('product/destroy/<int:pk>/',  ProductDestroyAPIView.as_view(), name ='product_destroy'),
+    path('product/updated/<int:pk>/',  ProductUpdatedAPIView.as_view(), name ='product_updated')
 
 ]
