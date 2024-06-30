@@ -13,12 +13,12 @@ class ProductListAPIViews(GeneralListApiView):# la clase para listar los product
      
 class ListProductCreateAPIView(generics.ListCreateAPIView): # vista para crear un producto y listar un producto, aca he unido el listado (get) y la creacion (Post) x eso la vista generica es: (generics.ListCreateAPIView) y antes era solo para crear  (generics.CreateAPIView)
      
-     serializer_class= ProductSerializer # con esta sola linea de codigo ya me creo el producto con serializer_class= ProductSerializer
-     queryset = ProductSerializer.Meta.model.objects.filter(state=True) # esta consulta la agregue ahora para el metodo de lista t crear (generics.ListCreateAPIView), antes en el metodo solo para crear no tenia esta consulta
+     serializer_class= ProductSerializer 
+     queryset = ProductSerializer.Meta.model.objects.filter(state=True) # esta consulta la agregue ahora para el metodo de listar y crear (generics.ListCreateAPIView), antes en el metodo solo para crear no tenia esta consulta
      #tambien puedo usar el metodo get_queryset() para la consulta, que es mas escalable, pero para este caso con solo este queryset esta bien
   #------------------------------------------------------------------------------  
   
-     # aca si no necesito puedo ponerle el metodo def get() 
+     # aca si necesito puedo ponerle el metodo def get() 
      
      
      def post(self,request): # hago este metodo para personalizarlo, osea para poner mensajes al crear, para que sea mas entendible etc etc
