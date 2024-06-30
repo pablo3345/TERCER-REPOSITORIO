@@ -3,7 +3,7 @@
 from django.urls import path
 
 from products.api.views.general_views import MeasureUnitListAPIView, CategoryProductListAPIView, IndicadorListAPIView
-from products.api.views.product_views import ProductListAPIViews,  ProductCreateAPIView, ProductRetrieveAPIView, ProductDestroyAPIView, ProductUpdatedAPIView
+from products.api.views.product_views import ProductListAPIViews,  ListProductCreateAPIView, ProductRetrieveAPIView, ProductDestroyAPIView, ProductUpdatedAPIView, ProductCreateAPIView
 
 
 urlpatterns = [
@@ -14,6 +14,7 @@ urlpatterns = [
     path('product/create/',  ProductCreateAPIView.as_view(), name ='product_Create'),
     path('product/retrive/<int:pk>/',  ProductRetrieveAPIView.as_view(), name ='product_retrieve'),
     path('product/destroy/<int:pk>/',  ProductDestroyAPIView.as_view(), name ='product_destroy'),
-    path('product/updated/<int:pk>/',  ProductUpdatedAPIView.as_view(), name ='product_updated')
+    path('product/updated/<int:pk>/',  ProductUpdatedAPIView.as_view(), name ='product_updated'),
+    path('product/',  ListProductCreateAPIView.as_view(), name ='product') # esta url corresponde a la vista para listar (get) y crear un producto (post), por eso se llama ListProductCreateAPIView, aca tengo dos en uno y no tengo que hacer dos vistas por separado
 
 ]
