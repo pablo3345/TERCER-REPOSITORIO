@@ -31,9 +31,9 @@ class ProductSerializer(serializers.ModelSerializer):
       return {'id': instance.id,
               'name': instance.name,
               'description': instance.description,
-               'image': instance.image if instance.image != '' else '', # como la imagen es nula y me daba error puese esto de cadena vacia y que me retorne una cadena vacia
-             'measure_unit': instance.measure_unit.description,
-             'category_product': instance.category_product.description}
+              'image': instance.image if instance.image else None, # como la imagen es nula y me daba error puese esto para que me retorne un None si no pongo nada en el campo image, esto seria validar
+              'measure_unit': instance.measure_unit.description  if instance.measure_unit != None else "", 
+              'category_product': instance.category_product.description  if instance.category_product != None else "" } # para que me retorne una cadena vacia y no me de error cuando hago ciertos metodos en la interfaz de ayuda (esto seria una validacion)
     
     
     #---------------------------------------------------------------------------------------------------
