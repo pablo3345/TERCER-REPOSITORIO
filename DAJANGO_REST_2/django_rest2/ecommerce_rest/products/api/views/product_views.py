@@ -1,7 +1,7 @@
 from rest_framework import generics #esta libreria se coloca primero
 from base.api import GeneralListApiView #GeneralListApiView seria como una vista de la app base
 from products.api.serializers.product_serializers import ProductSerializer
-
+from  rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -75,7 +75,7 @@ class ProductDestroyAPIView(generics.DestroyAPIView):# para eliminar un producto
              product.state=False
              product.save()
              
-             return Response({'message': 'Producto eliminado correctamente'},status=status.HTTP_201_CREATED)
+             return Response({'message': 'Producto eliminado correctamente'},status=status.HTTP_200_OK)
         
           return Response({'error': 'no existe un producto con estos datos'}, status=status.HTTP_400_BAD_REQUEST)# esto seria como el else del if de arriba que dice si hay producto
      
@@ -179,7 +179,7 @@ class ProductRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView)
              product.state=False
              product.save()
              
-             return Response({'message': 'Producto eliminado correctamente'},status=status.HTTP_201_CREATED)
+             return Response({'message': 'Producto eliminado correctamente'},status=status.HTTP_200_OK)
         
           return Response({'error': 'no existe un producto con estos datos'}, status=status.HTTP_400_BAD_REQUEST)# esto seria como el else del if de arriba que dice si hay producto
      
@@ -187,4 +187,70 @@ class ProductRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView)
      
  # ENTONCES PARA SIMPLIFLICAR EL SOFTWARE DEJAMOS SOLO DOS FUNCIONES QUE HACEN TODO EL CRUD DE LISTAR, CREAR, ACTUALIZAR Y ELIMINAR
  
+ # en el video 24 unifico todas estas vistas    
+ 
+ 
+ 
+ #----------------ahora hago una sola clase viewsts que me hace todo el CRUD, con todos los metodos HTTP--------------------------------
+ 
+class ProductViewSet(viewsets.ModelViewSet): # hay varios viewset en este caso uso (viewsets.ModelViewSet):
+     
+     serializer_class=ProductSerializer
+    # queryset= ProductSerializer.Meta.model.objects.filter(state=True)
+     
+#-----con lo de arriba ya me genera todos los metodos en la interfaz de ayuda, ahora puedo sobreescribir todos los metodos
+
+    
+     def get_queryset(self, pk=None):
+          
+          if pk==None:
+          
+           return self.get_serializer().Meta.model.objects.filter(state=True)
+      
+          else:
+           return self.get_serializer().Meta.model.objects.filter(state=True).filter(id=pk).first()
+      
+     
+     def list(self, request): # el listado de todos los productos
+         # print("hola desde el listado")
+          product_serializer= self.get_serializer(self.get_queryset(), many=True)
+          
+          return Response(product_serializer.data, status= status.HTTP_200_OK)
+          
+          
+      
+      
+     def create(self,request): # este seria el post para guardar, pero en viewsets.ModelViewSet se reemplaza por el create
+        
+        serializer = self.serializer_class(data=request.data)
+      
+        if serializer.is_valid():
+             serializer.save()
+             return Response({'message': 'el producto fue creado con exito'},status=status.HTTP_201_CREATED)
+                    
+     
+     def destroy(self, request, pk=None): # una forma de eliminar un producto pero no de la bbdd sino ocultandolo poniendo state=False
+          # aca no uso el metodo updated ya que cambio es estado de state a False, porque si uso updated no me va a permitir hacer esta validacion paso a paso
+          # en viewsets.ModelViewSet el metodo no se llama delete sino destroy
+          product =self.get_queryset().filter(id=pk).first()
+          
+          if product: # si esta el producto
+             product.state=False
+             product.save()
+             
+             return Response({'message': 'Producto eliminado correctamente'},status=status.HTTP_200_OK)
+        
+          return Response({'error': 'no existe un producto con estos datos'}, status=status.HTTP_400_BAD_REQUEST)# esto seria como el else del if de arriba que dice si hay producto
+     
+      
+     
+     def update(self, request, pk=None): # antes este metodo era el put pero con viewsets.ModelViewSet se llama update
+          
+            if self.get_queryset(pk):
+                 
+                  product_serializer= self.serializer_class(self.get_queryset(pk), data = request.data)
+                  if product_serializer.is_valid():
+                       product_serializer.save()
+                       return Response(product_serializer.data,status=status.HTTP_200_OK)
+                  return Response(product_serializer.errors, status=status.HTTP_400_BAD_REQUEST)# el else del if de arriba
      
