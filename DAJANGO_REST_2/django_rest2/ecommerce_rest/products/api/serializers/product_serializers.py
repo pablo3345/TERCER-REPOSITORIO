@@ -13,7 +13,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
      model = Product
      
-     exclude=('state',)
+     exclude=('state',) # los campos que pongo aca en el field son los que se me van a ver en la interfaz swagger
      
       #----------para no mostrar el numero de foreign Key y si su nombre real-----------------------------
     

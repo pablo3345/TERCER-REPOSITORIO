@@ -4,6 +4,18 @@
 from rest_framework import serializers
 from users.models import User
 
+# creo un serializador para el token
+class UserTokenSerializer(serializers.ModelSerializer):
+  
+  class Meta:
+    model=User
+    
+    fields=('username', 'email', 'name', 'last_name') #quiero que me devuelva solo esos campos
+
+
+
+
+
 # ahora creo el serializazors, que me convierte a json
 
 class UserSerializer(serializers.ModelSerializer): # va a ser un serielizadors basado en un modelo, por eso hereda de ModelSerializer
@@ -101,5 +113,7 @@ class TestUserSerializador(serializers.Serializer): # no tiene como parametro Mo
     
    # print(self)
     #send_mail()
+    
+    
+    
  
-#volver atras---------------------------------------------------------- --------------------

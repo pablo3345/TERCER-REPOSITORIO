@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#s4(c#n61jvpqk3pyd^ko(s9o#l45m=j6i^f2#pm!p011-#hol'
+SECRET_KEY = 'django-insecure-#s4(c#n61jvpqk3pyd^ko(s9o#l45m=j6i^f2#pm!p011-#hol' # es una clave secreta unica, encriptada que tiene cada proyecto de django que sirven para la implementacion de token
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -54,11 +54,15 @@ LOCAL_APPS=[
 THIRD_APPS=[
     
     'rest_framework',
+    'rest_framework.authtoken', # esto lo unico que vamos a colocar para el token de autenticacion, por eso necesito hacer un python manage.py migrate, no hago un makemigrations xq me aparece que no hay cambios detectedos
     'simple_history', # esta libreria que es la que me instale para ver el historial del usuario, es de terceros x eso se coloca aqui
-    
+    'drf_yasg', # la libreria swagger
 ]
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS+ THIRD_APPS
+
+
+SWAGGER_SETTINGS={'DOC_EXPANSION': 'none'} # para que en la interfaz swagger no me muestre todos los metodos uno abajo del otro y yo seleccione para verlos
 
 
 MIDDLEWARE = [

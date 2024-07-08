@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view #un decorador para las vistas basadas en funcion y no de clases
 from rest_framework import status
 #una vista basada en clase
+
 '''class UserApiView(APIView): # es como una vista en django
     
     def get(self, request): # este metodo get va a recibir la peticion que me envie el front End
@@ -112,4 +113,4 @@ def user_detail_view(request, pk=None):
    return Response({'message': 'no se ha encontrado el usuario con esos datos'}, status= status.HTTP_400_BAD_REQUEST)# si no hay usuario me retornas este mensaje, aca seria como el else del if de arriba, y error 400 xq si no encontro el usario debe haber un error
    
    
-   # volver atras-----------------------------------------------------------------------------------
+   # SI A ESTAS FUNCIONES LA PASO A (viewsets.ModelViewSet): O A (ViewSet.GenericViewSet) ENTONCES ME APARECE EN LA INTERFAZ SWAGGER, FIJARME QUE OTRAS NO
