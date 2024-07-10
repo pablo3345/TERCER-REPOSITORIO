@@ -25,7 +25,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 #--------------------------------------------------
-from users.views import Login
+from users.views import Login, Logaut
 
 
 
@@ -51,11 +51,12 @@ urlpatterns = [
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
    
-   #----------------------------------------------------------------
+   # ----------------------------------------------------------------
     path('admin/', admin.site.urls),
     path('usuario/', include('users.api.urls')),
     path('products_1/', include('products.api.urls')),
     path('products_2/', include('products.api.routers')),# la url de los viewSet
-    path('', Login.as_view(), name='Login')
+    path('', Login.as_view(), name='Login'),
+    path('logaut/', Logaut.as_view(), name='Logaut')
 ]
 
