@@ -1,3 +1,4 @@
+from users.authentication_mixin import Authentication 
 from rest_framework import generics #esta libreria se coloca primero
 from base.api import GeneralListApiView #GeneralListApiView seria como una vista de la app base
 from products.api.serializers.product_serializers import ProductSerializer
@@ -193,7 +194,9 @@ class ProductRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView)
  
  #----------------ahora hago una sola clase viewsets que me hace todo el CRUD, con todos los metodos HTTP--------------------------------
  
-class ProductViewSet(viewsets.ModelViewSet): # hay varios viewset en este caso uso (viewsets.ModelViewSet):
+ 
+ # traigo la class Authentication de authentication_mixin
+class ProductViewSet(Authentication, viewsets.ModelViewSet): # hay varios viewset en este caso uso (viewsets.ModelViewSet):
      
      serializer_class=ProductSerializer
     # queryset= ProductSerializer.Meta.model.objects.filter(state=True)
