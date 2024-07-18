@@ -3,6 +3,8 @@ from rest_framework.authentication import get_authorization_header # get_authori
 # entonces cada interfaz que este conectada tiene que mandar el Authorization con el token para que se proceda a la validacion de todo el sistema
 # entonces puedo usar el get_authorization_header para descodificar el token y una vez que lo descodifico obtener el usuario
 from users.authtentication import ExpiringTokenAuthentication # me traigo la clase la class...
+from rest_framework.renderers import JSONRenderer
+from rest_framework.response import Response
 
 class Authentication(object):
     
@@ -22,12 +24,17 @@ class Authentication(object):
          
          token_expire = ExpiringTokenAuthentication() # para ver si mi token expiro llamando a la funcion
          
-         try: # aca hago el try por las dudas de no obtener estos dos valores (user,token) xq sino me da error
-           user,token = token_expire.authenticate_credentials(token) # cuando hago esto me va hacer todo lo que esta en authenticate_credentials() en authentication
+         #try: # aca hago el try por las dudas de no obtener estos dos valores (user,token) xq sino me da error
+         user,token, message = token_expire.authenticate_credentials(token) # cuando hago esto me va hacer todo lo que esta en authenticate_credentials() en authentication
+         
+         if user != None and token != None:
+           return user # lo que quiero aca es el usuario
          
          
-         except:
-             message = token_expire.authenticate_credentials(token) # llamo a la funcion que debe validar este error o excepcion
+         return message # creo que esto seria como el else del if de: if user != None and token != None:
+         
+        # except:
+            # message = token_expire.authenticate_credentials(token) # llamo a la funcion que debe validar este error o excepcion
            
              
      
@@ -45,13 +52,34 @@ class Authentication(object):
         
         user = self.get_user(request)
         
+        # se encontro un token en la peticion entonces pueden ser dos cosas que nos retorne un message o que nos retorne un usuario
+        if user != None:
+          if type(user) == str: # esto significa que nos ha retornado un message, fijarme que user hace el llamado de la funcion de arriba  def get_user(self, request):
+          
+            response= Response({'error':user})
+          
+            response.accepted_renderer = JSONRenderer()
+            response.accepted_media_type ='application/json'
+            response.renderer_context = {} # un diccionario vacio xq es un contexto
         
-        
-        return super().dispatch(request, *args, **kwargs)
+            return response
+      
+          
+          
+          
+          
+          # osea si no me ha retornado un menssage entonces retorname esto, creo que esto seria como un else del if de arriba
+          return super().dispatch(request, *args, **kwargs)
    
+        response = Response({'error': 'no se han enviado las credenciales'})# esto es si el usuario si es None, seria como un else, recordemos que en la funcion de arriba get_user(request) traigo el token y al descodificarlo me traigo el usuario
+          # con esto traigo el token en la funcion de arriba y descodifico el usuario ej:  token = get_authorization_header(request).split()
+        response.accepted_renderer = JSONRenderer()
+        response.accepted_media_type ='application/json'
+        response.renderer_context = {} # un diccionario vacio xq es un contexto
         
+        return response
+      
         
-        
-        
-        
+        # todo eso que puse en el response de accepted_renderer etc etc es xq no se puede hacer un solo un Response en una clase como esta que no hereda de APIView, ViewSet etc etc, entonces hay que decirle
+     
     
