@@ -7,9 +7,12 @@ from django.conf import settings
 
 class ExpiringTokenAuthentication(TokenAuthentication): # esto es para agregar un tiempo de expiracion al token
     
+    expired =False # me creo una variable que esta en False y cuando entra al  token_expire_handler(self, token): estara en True, para decirle que ha expirado, creo que do dijo para avisarme al front end
+    # y al final la retorno en el return de def authenticate_credentials(self, key):
+    
     
     #---------------------funcion-----------------------------------------------------------------
-    
+    # expires_in = expira en
     def expires_in(self, token): # este metodo va decir cual es el tiempo que ha pasado, realiza todo el calculo
       
     #time elapsed = tiempo transcurrido
@@ -21,20 +24,27 @@ class ExpiringTokenAuthentication(TokenAuthentication): # esto es para agregar u
      return left_time # left_time es tiempo que falta
      
    #----------------------funcion----------------------------------------------------------------- 
-   
+    #  is_token_expired = ¿el token ha caducado?
     def is_token_expired(self, token): # esta funcion me pregunta si el token a expirado, realiza la comparacion
      
      return self.expires_in(token) <  timedelta(seconds=0)# aca pregunta si la fecha de expiracion del token es menor a la hora actual,  self.expires_in(token) es la funcion de arriba
    #----------------------funcion----------------------------------------------------------------- 
-   
+    #  token_expire_handler = controlador de caducidad de token
     def token_expire_handler(self, token):
       
       is_expire =self.is_token_expired(token) # is_expire es la variable para saber si el token ha expirado
       
       if is_expire:
-        print('token expirado')
+         self.expired=True
+         print("su token correspondiente ha expirado")
+         user = token.user
+         token.delete() # como ya a expirado el token te lo eliminio y te creo uno nuevo, te lo actualizo
+         
+         # aca prodria poner que me elimine la sesion tambien, pero en este ecommrce no lo vamos a hacer
+         
+         token = self.get_model().objects.create(user = user) # aca creo un nuevo token, se lo estoy refrescando
         
-      return is_expire
+      return is_expire, token
       
    #----------------------funcion-----------------------------------------------------------------  
    
@@ -54,7 +64,8 @@ class ExpiringTokenAuthentication(TokenAuthentication): # esto es para agregar u
           #raise AuthenticationFailed('token invalido') # esta es la clase de excepcion, pero sale un error 500 y dijo que a los errores 500 en esta ocacion hay que evitarlos para que no se detenga la ejecucion
           message="token invalido"
           #return message # el mensaje de token invalido para que no se me detenga la ejecusion con el error 500
-        
+          
+          self.expired=True # puede que tu token haya expirado
         
        if token is not None:
         
@@ -71,9 +82,12 @@ class ExpiringTokenAuthentication(TokenAuthentication): # esto es para agregar u
         # return message  # el mensaje de token invalido para que no se me detenga la ejecusion con el error 500
        
        
-       return(user, token, message)
+       return(user, token, message, self.expired)
      
      
      # con todo esto le hemos dado un tiempo de vida a nuestro token, ahora tenemos que implementarlo
      
-     #---volver---atras---------------------------------------------------------------
+     
+     
+     
+    

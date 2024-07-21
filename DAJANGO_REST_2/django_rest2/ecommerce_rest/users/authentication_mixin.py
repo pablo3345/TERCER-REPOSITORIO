@@ -1,3 +1,4 @@
+from rest_framework import status
 from rest_framework.authentication import get_authorization_header # get_authorization_header esta es la funcion que se encuentra en la clase authentication en la documentacion del link del video 27
 # la funcion get_authorization_header lo que hace es traernos la variable Authorization auth que viene dentro del header o cabecera, y al enviar la peticion esto se colocaba en la cabecera y podriamos obtener ese token, (fijarme en Postman que aparece header)
 # entonces cada interfaz que este conectada tiene que mandar el Authorization con el token para que se proceda a la validacion de todo el sistema
@@ -7,6 +8,9 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 
 class Authentication(object):
+  
+    user =None
+    user_token_expire = False
     
     def get_user(self, request): # hago esta funcion para llamarla desde dispatch, la hago para no hacer todo junto en dispatch
      token = get_authorization_header(request).split() # el split() aparentemente divide una cadena de texto en partes mas pequeñas por ejemplo en una lista ["la", "lluvia", "es", "linda"]
@@ -25,9 +29,12 @@ class Authentication(object):
          token_expire = ExpiringTokenAuthentication() # para ver si mi token expiro llamando a la funcion
          
          #try: # aca hago el try por las dudas de no obtener estos dos valores (user,token) xq sino me da error
-         user,token, message = token_expire.authenticate_credentials(token) # cuando hago esto me va hacer todo lo que esta en authenticate_credentials() en authentication
+         user,token, message, self.user_token_expire = token_expire.authenticate_credentials(token) # cuando hago esto me va hacer todo lo que esta en authenticate_credentials() en authentication
+         # si ha expirado o no, lo voy a guardar en esta variable self.user_token_expire
          
          if user != None and token != None:
+           self.user = user # si paso este if significa que hay un usuario, para poder usuarlo en cualquier clase, cualquier vista, para validar cualquier cosa
+           
            return user # lo que quiero aca es el usuario
          
          
@@ -56,8 +63,8 @@ class Authentication(object):
         if user != None:
           if type(user) == str: # esto significa que nos ha retornado un message, fijarme que user hace el llamado de la funcion de arriba  def get_user(self, request):
           
-            response= Response({'error':user})
-          
+            response= Response({'error':user,'expired':self.user_token_expire}, status = status.HTTP_400_BAD_REQUEST) # 401 no autorizado
+              # 'expired':self.user_token_expire le mando esto para saber en el front end si el token expiro
             response.accepted_renderer = JSONRenderer()
             response.accepted_media_type ='application/json'
             response.renderer_context = {} # un diccionario vacio xq es un contexto
@@ -65,14 +72,16 @@ class Authentication(object):
             return response
       
           
+          if  not self.user_token_expire: # si el token esta vencido entonces no me va a pintar nada, por eso le puse el return
+             
+             return super().dispatch(request, *args, **kwargs)
           
-          
-          
-          # osea si no me ha retornado un menssage entonces retorname esto, creo que esto seria como un else del if de arriba
-          return super().dispatch(request, *args, **kwargs)
+     
+             
    
-        response = Response({'error': 'no se han enviado las credenciales'})# esto es si el usuario si es None, seria como un else, recordemos que en la funcion de arriba get_user(request) traigo el token y al descodificarlo me traigo el usuario
+        response = Response({'error': 'no se han enviado las credenciales','expired':self.user_token_expire}, status=status.HTTP_400_BAD_REQUEST)# esto es si el usuario si es None, seria como un else, recordemos que en la funcion de arriba get_user(request) traigo el token y al descodificarlo me traigo el usuario
           # con esto traigo el token en la funcion de arriba y descodifico el usuario ej:  token = get_authorization_header(request).split()
+          # 'expired':self.user_token_expire le mando esto para saber en el front end si el token expiro
         response.accepted_renderer = JSONRenderer()
         response.accepted_media_type ='application/json'
         response.renderer_context = {} # un diccionario vacio xq es un contexto
@@ -82,4 +91,3 @@ class Authentication(object):
         
         # todo eso que puse en el response de accepted_renderer etc etc es xq no se puede hacer un solo un Response en una clase como esta que no hereda de APIView, ViewSet etc etc, entonces hay que decirle
      
-    

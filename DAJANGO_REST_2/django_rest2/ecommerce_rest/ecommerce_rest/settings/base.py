@@ -65,7 +65,7 @@ INSTALLED_APPS = BASE_APPS + LOCAL_APPS+ THIRD_APPS
 SWAGGER_SETTINGS={'DOC_EXPANSION': 'none'} # para que en la interfaz swagger no me muestre todos los metodos uno abajo del otro y yo seleccione para verlos
 
 
-TOKEN_EXPIRED_AFTER_SECONDS = 10 # me creo una variable para que me diga cuanto tiempo quiero que expire el token
+TOKEN_EXPIRED_AFTER_SECONDS = 900 # me creo una variable para que me diga cuanto tiempo quiero que expire el token, generalmente son 15 minutos que serian 900 segundos
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

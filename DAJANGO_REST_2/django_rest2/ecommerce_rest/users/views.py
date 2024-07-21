@@ -9,6 +9,26 @@ from datetime import datetime
 from rest_framework.views import APIView
 # Create your views here.
 
+
+class UserToken(APIView): # hago una vista para que me refresque el token
+    
+    def get(self, request, *args, **kwargs):
+        
+        username = request.GET.get('username')
+        
+        try:
+            # aca me esta trayendo el usuario para este token, si no me trae este usuario entonces es un usuario que no ha iniciado sesion nunca
+            user_token = Token.objects.get(user= UserTokenSerializer().Meta.model.objects.filter(username=username).first())
+            
+            return Response({'token': user_token.key}) # solo me trae el token que esta en la bbdd, si se ha vencido no importa
+        except:
+        # que pasa si no me encuentra el token
+          return Response({'error':'credenciales enviada incorrectas'}, status = status.HTTP_400_BAD_REQUEST) #HTTP_400_BAD_REQUEST significa mala peticion
+        
+    
+    
+
+
 class Login(ObtainAuthToken): # ObtainAuthToken lo que hace es una vista normal que creo que dijo que hereda de ApiView
     # ObtainAuthToken ya tiene dos campos definidos el username y el password
     # ObtainAuthToken no permite el metodo get, por eso para probar el login no podemos usar la interfaz de django rest framework
@@ -89,7 +109,7 @@ class Logaut(APIView): # tambien se puede crear una funcion con el decorador par
         if token:
             user=token.user # si hay token me traigo el usuario
              # como hago un logaut destruyo la sesion y el token
-            all_sessions = Session.objects.filter(expire_date__gte = datetime.now())
+            all_sessions = Session.objects.filter(expire_date__gte = datetime.now())# esto se utiliza para filtrar las sesiones cuya fecha de expiracion es mayor o igual a la fecha actual, osea solo me traera sesiones cuya fecha no han expirado
                   
             if all_sessions.exists():
                 for session in all_sessions: #buscame la session que corresponda al usuario actual

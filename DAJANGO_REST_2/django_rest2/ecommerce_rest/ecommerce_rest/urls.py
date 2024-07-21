@@ -25,7 +25,7 @@ from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 #--------------------------------------------------
-from users.views import Login, Logaut
+from users.views import Login, Logaut, UserToken
 
 
 
@@ -57,6 +57,7 @@ urlpatterns = [
     path('products_1/', include('products.api.urls')),
     path('products_2/', include('products.api.routers')),# la url de los viewSet
     path('', Login.as_view(), name='Login'),
-    path('logaut/', Logaut.as_view(), name='Logaut')
+    path('logaut/', Logaut.as_view(), name='Logaut'),
+    path('refresh-token/', UserToken.as_view(), name='refresh-token')
 ]
 
