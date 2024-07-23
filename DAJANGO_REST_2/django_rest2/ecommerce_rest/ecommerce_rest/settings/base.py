@@ -52,11 +52,13 @@ LOCAL_APPS=[
 
 #aplicaciones de terceros que son las librerias externas basicamente
 THIRD_APPS=[
-    
+  
+    'corsheaders',# esta libreria me la instale en la consola, y sirve para tema de polica y seguridad
     'rest_framework',
     'rest_framework.authtoken', # esto lo unico que vamos a colocar para el token de autenticacion, por eso necesito hacer un python manage.py migrate, no hago un makemigrations xq me aparece que no hay cambios detectedos
     'simple_history', # esta libreria que es la que me instale para ver el historial del usuario, es de terceros x eso se coloca aqui
     'drf_yasg', # la libreria swagger
+    
 ]
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS+ THIRD_APPS
@@ -68,9 +70,10 @@ SWAGGER_SETTINGS={'DOC_EXPANSION': 'none'} # para que en la interfaz swagger no 
 TOKEN_EXPIRED_AFTER_SECONDS = 900 # me creo una variable para que me diga cuanto tiempo quiero que expire el token, generalmente son 15 minutos que serian 900 segundos
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', # aca coloco el corsheders en el moddleware y en la documentacion dice que se coloca lo mas arriba posible
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
+    'django.middleware.common.CommonMiddleware', 
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -123,11 +126,17 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Argentina/Buenos_Aires'
 
 USE_I18N = True
 
 USE_TZ = True
+
+
+CORS_ALLOWED_ORIGINS =["http://localhost:3000"] # esto es una configuracion que nos dice a nuestro backend de donde permitimos peticiones,
+# y en este caso le digo que me lo permita pero en el localhost 3000
+# creo que dijo que mediante este cors se pueden hacer peticiones desde react, desde aplicaciones android, javascript
+CORS_ORIGIN_WHITELIST=["http://localhost:3000"]
 
 
 # Static files (CSS, JavaScript, Images)

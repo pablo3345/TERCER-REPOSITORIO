@@ -20,7 +20,7 @@ class UserToken(APIView): # hago una vista para que me refresque el token
             # aca me esta trayendo el usuario para este token, si no me trae este usuario entonces es un usuario que no ha iniciado sesion nunca
             user_token = Token.objects.get(user= UserTokenSerializer().Meta.model.objects.filter(username=username).first())
             
-            return Response({'token': user_token.key}) # solo me trae el token que esta en la bbdd, si se ha vencido no importa
+            return Response({'token': user_token.key}) # solo me trae el token actual que esta en la bbdd, si se ha vencido no importa se volvera a hacer la peticion
         except:
         # que pasa si no me encuentra el token
           return Response({'error':'credenciales enviada incorrectas'}, status = status.HTTP_400_BAD_REQUEST) #HTTP_400_BAD_REQUEST significa mala peticion
