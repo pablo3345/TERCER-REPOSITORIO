@@ -44,7 +44,7 @@ class Login(ObtainAuthToken): # ObtainAuthToken lo que hace es una vista normal 
            # print(login_serializer.validated_data['user']) # validate_data xq en el serializador por defecto de authtoken la funcion validate nos esta devolviendo un user
             user = login_serializer.validated_data['user'] # aca obtengo mi usuario, validate_data xq en el serializador por defecto de authtoken esta en la funcion validate
             if user.is_active: #aca pregunto si mi usuario esta activo, no vale la pena seguir si mi usuario no esta activo x eso pregunto esto
-          
+           # si el usuario no esta activo puede ser que lo hayan desabilitado x alguna razon
                 
               token,created = Token.objects.get_or_create(user=user) # lo que tiene el modelo Token es un campo llamado user, por eso aca filtro por usuario
               #esto quiere decir: traeme el token para este usuario, y si no existe me lo creas al token

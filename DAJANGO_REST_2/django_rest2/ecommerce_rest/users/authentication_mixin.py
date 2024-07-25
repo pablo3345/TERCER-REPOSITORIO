@@ -18,7 +18,7 @@ class Authentication(object):
      if token:
          try:
           token = token[1].decode() # accedo a la posicion 1 porque es el tokem ej sdfsgzgaegaregag , y la posicion 0 es la palabra token
-         
+       
     
          except:
           

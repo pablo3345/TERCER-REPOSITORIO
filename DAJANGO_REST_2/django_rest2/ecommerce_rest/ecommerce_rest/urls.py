@@ -56,7 +56,7 @@ urlpatterns = [
     path('usuario/', include('users.api.urls')),
     path('products_1/', include('products.api.urls')),
     path('products_2/', include('products.api.routers')),# la url de los viewSet
-    path('', Login.as_view(), name='Login'),
+    path('login/', Login.as_view(), name='Login'),
     path('logaut/', Logaut.as_view(), name='Logaut'),
     path('refresh-token/', UserToken.as_view(), name='refresh-token') # simepre que el token este expirado el front end me tiene que redireccionar a una ruta para refrescar el token
 ]

@@ -57,7 +57,7 @@ class ExpiringTokenAuthentication(TokenAuthentication): # esto es para agregar u
          token = self.get_model().objects.select_related('user').get(key=key)# aca me traigo el token y get_model() seria la funcion que esta dentro de la clase TokenAuthentication que trata todo el tema de autenticacion  y que dicha funcion devuelve el token
          # aca al toquen tambien puedo obtenerlo de la forma tradicional sin get_model()
          # select_related('user') es para que nos traiga la instancia mas eficiente, ('user') estaria dentro de la relacion y asi poder traerlo mas optimizado despues
-         
+       
          user=token.user # aca ya encontro el usuario
        except self.get_model().DoesNotExist: # DoesNotExist seria la excepcion que tiene la funcion get_model() dentro de la clase TokenAuthentication, que dicha documentacion se encuentra creo que en un link en los comentarios del video 27
            
