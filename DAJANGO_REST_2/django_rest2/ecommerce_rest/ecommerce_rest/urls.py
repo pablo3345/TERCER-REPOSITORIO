@@ -30,7 +30,6 @@ from users.views import Login, Logaut, UserToken
 
 
 
-
 schema_view = get_schema_view(
    openapi.Info(
       title="Documentacion de API",
@@ -55,9 +54,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('usuario/', include('users.api.urls')),
     path('products_1/', include('products.api.urls')),
-    path('products_2/', include('products.api.routers')),# la url de los viewSet
-    path('login/', Login.as_view(), name='Login'),
-    path('logaut/', Logaut.as_view(), name='Logaut'),
-    path('refresh-token/', UserToken.as_view(), name='refresh-token') # simepre que el token este expirado el front end me tiene que redireccionar a una ruta para refrescar el token
-]
-
+    path('products_2/', include('products.api.routers')),# la url de los viewSet 
+    path('login/', Login.as_view(), name='login'),
+    path('logout/', Logaut.as_view(), name='logout'),
+    path('refresh-token/', UserToken.as_view(), name='refresh-token'), # simepre que el token este expirado el front end me tiene que redireccionar a una ruta para refrescar el token
+    
+ 
+   
+]  

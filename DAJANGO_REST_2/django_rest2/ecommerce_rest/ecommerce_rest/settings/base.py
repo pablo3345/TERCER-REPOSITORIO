@@ -136,15 +136,17 @@ USE_TZ = True
 CORS_ALLOWED_ORIGINS =["http://localhost:3000"] # esto es una configuracion que nos dice a nuestro backend de donde permitimos peticiones,
 # y en este caso le digo que me lo permita pero en el localhost 3000, esta es la ip de local, estariamos en produccion iria la ip correspondiente
 # creo que dijo que mediante este cors se pueden hacer peticiones desde react, desde aplicaciones android, javascript
-CORS_ORIGIN_WHITELIST=["http://localhost:3000"]
+CORS_ORIGIN_WHITELIST= ["http://localhost:3000"]
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 AUTH_USER_MODEL ='users.User' # con esto le digo a django que mi aplicacion va a funcionar con un modelo llamado usuario
-STATIC_URL = 'static/'
 
+#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend', 'build', 'static')]  # importe esto del tutorial para conectar django con react
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_URL = '/static/'

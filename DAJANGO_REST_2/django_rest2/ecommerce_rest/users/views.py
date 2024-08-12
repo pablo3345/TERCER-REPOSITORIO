@@ -9,18 +9,26 @@ from datetime import datetime
 from rest_framework.views import APIView
 # Create your views here.
 
-
-class UserToken(APIView): # hago una vista para que me refresque el token
+from users.authentication_mixin import Authentication # traigo la clase Authentication que va a heredar en la clase de abajo UserToken
+ 
+ 
+class UserToken(Authentication, APIView): # hago una vista para que me refresque el token
     
+    # solo valida el token
+   
     def get(self, request, *args, **kwargs):
+      
         
-        username = request.GET.get('username')
+       
         
         try:
             # aca me esta trayendo el usuario para este token, si no me trae este usuario entonces es un usuario que no ha iniciado sesion nunca
-            user_token = Token.objects.get(user= UserTokenSerializer().Meta.model.objects.filter(username=username).first())
+            user_token,_ = Token.objects.get_or_create(user=self.user)
+            # no nos olvidemos que el metodo get_or_create devuelve dos cosas,  token,created 
             
-            return Response({'token': user_token.key}) # solo me trae el token actual que esta en la bbdd, si se ha vencido no importa se volvera a hacer la peticion
+            user = UserTokenSerializer(self.user)
+            
+            return Response({'token': user_token.key, 'user': user.data}) # solo me trae el token actual que esta en la bbdd, si se ha vencido no importa se volvera a hacer la peticion
         except:
         # que pasa si no me encuentra el token
           return Response({'error':'credenciales enviada incorrectas'}, status = status.HTTP_400_BAD_REQUEST) #HTTP_400_BAD_REQUEST significa mala peticion

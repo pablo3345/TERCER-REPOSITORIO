@@ -114,3 +114,7 @@ def user_detail_view(request, pk=None):
    
    
    # SI A ESTAS FUNCIONES LA PASO A (viewsets.ModelViewSet): O A (ViewSet.GenericViewSet) ENTONCES ME APARECE EN LA INTERFAZ SWAGGER, FIJARME QUE OTRAS NO
+   
+   
+   
+   
