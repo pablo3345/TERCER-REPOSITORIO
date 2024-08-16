@@ -18,10 +18,9 @@ class ProjectViewsets(viewsets.ModelViewSet):
     
   
      
-    def list(self, request): # con su respectivo return Response, este es un ejemplo del crud, donde entra a la funcion para manipularla
-          print("entro a esta funcion de obtener para poder editar")
-       
-          
-          return Response({'mensaje': 'entro a la funcion list del viewSet'})
-         
+  
         
+        
+       
+       
+     
