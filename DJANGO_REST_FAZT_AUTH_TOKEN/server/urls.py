@@ -23,5 +23,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path('login', views.login),
     re_path('register', views.register),
-    re_path('perfil', views.perfil)
+    re_path('perfil', views.perfil),
+    
+    #re_path('logaut', views.logaut),# esto lo invente yo no estaba en el tutorial
+    
+   
 ]
