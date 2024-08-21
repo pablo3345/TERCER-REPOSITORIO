@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'coreapi', # esta libreria sirve para documentar la informacion, tuve que hacer en la consola, pip install coreapi
     'tasks'
 ]
 
@@ -126,8 +127,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+
+
 # esto es para decirle quien permite conectar, quien puede hacer peticiones a ese servidor
-CORS_ALLOWED_ORIGINS=[
-    
-    
-]
+CORS_ORIGIN_WHITELIST = ['http://localhost:5173']
+
+

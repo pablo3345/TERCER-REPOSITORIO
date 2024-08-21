@@ -7,6 +7,6 @@ class TaskSerializer(serializers.ModelSerializer):
       
       model=Task
       
-      filds= ('id', 'title', 'description', 'done') # esto es una tupla, recordar poner el id aunque en el modelo no lo pusimos
+      fields= ('id', 'title', 'description', 'done') # esto es una tupla, recordar poner el id aunque en el modelo no lo pusimos
       #fields= '__all__' tambien puedo ponerlo asi
       
